@@ -1022,24 +1022,46 @@
         }
 
         /* ─── MIND MAP / VISUAL EXPLAINER ─────────────────────────── */
-        /* No outer wrapper box — phases flow naturally inside the message */
+        /* No outer wrapper box — content flows naturally inside the message */
         .mindmap-container {
             width: 100%;
             margin: 14px 0 18px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .mindmap-title {
             font-size: 12px;
             font-weight: 800;
-            color: #c4b5fd;
+            color: #a78bfa;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
+            gap: 8px;
+            opacity: 0.85;
+        }
+
+        /* ─── Reveal animation: cards appear box-by-box ─── */
+        @keyframes mindmapItemIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.96); filter: blur(2px); }
+            to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        .mindmap-item {
+            opacity: 0;
+            animation: mindmapItemIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: calc(var(--mm-i, 0) * 90ms);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           STYLE A — FLOW (phased rows with arrows)
+           ════════════════════════════════════════════════════════════ */
+        .mindmap-flow {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
@@ -1071,7 +1093,7 @@
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(255, 255, 255, 0.025);
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -1079,64 +1101,269 @@
         }
 
         .mindmap-card:hover {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .mindmap-arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 18px;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1;
+            opacity: 0.4;
+            margin: -2px 0;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           STYLE B — HUB (central concept + radiating branches)
+           ════════════════════════════════════════════════════════════ */
+        .mindmap-hub {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            padding: 8px 0;
+        }
+
+        .mindmap-hub-center {
+            position: relative;
+            padding: 18px 26px;
+            border-radius: 999px;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1.5px solid rgba(139, 92, 246, 0.35);
+            text-align: center;
+            box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.04), 0 0 30px rgba(139, 92, 246, 0.1);
+            min-width: 200px;
+            max-width: 80%;
+            z-index: 2;
+        }
+
+        .mindmap-hub-center .mindmap-card-title {
+            font-size: 16px;
+            color: #e9d5ff;
+            font-weight: 700;
+        }
+
+        .mindmap-hub-center .mindmap-card-subtitle {
+            font-size: 12px;
+            color: #c4b5fd;
+            margin-top: 3px;
+        }
+
+        .mindmap-hub-spokes {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .mindmap-hub-branch {
+            position: relative;
+            padding: 12px 14px;
+            border-radius: 16px 16px 16px 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.025);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .mindmap-hub-branch:nth-child(2n) {
+            border-radius: 16px 16px 4px 16px;
+        }
+
+        .mindmap-hub-branch:hover {
+            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Vibrant filled themes — match the deep-tinted Claude-style cards */
-        .mindmap-card.theme-blue {
-            background: rgba(30, 58, 138, 0.42);
-            border-color: rgba(99, 102, 241, 0.35);
+        .mindmap-hub-branch::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 1px;
+            height: 10px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15));
         }
-        .mindmap-card.theme-blue .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-blue .mindmap-card-subtitle { color: #a5b4fc; }
 
-        .mindmap-card.theme-violet {
-            background: rgba(46, 16, 101, 0.45);
-            border-color: rgba(139, 92, 246, 0.4);
+        /* ════════════════════════════════════════════════════════════
+           STYLE C — STEPS (numbered timeline)
+           ════════════════════════════════════════════════════════════ */
+        .mindmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+            padding-left: 8px;
         }
-        .mindmap-card.theme-violet .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-violet .mindmap-card-subtitle { color: #c4b5fd; }
 
-        .mindmap-card.theme-emerald {
-            background: rgba(6, 78, 59, 0.4);
-            border-color: rgba(16, 185, 129, 0.35);
+        .mindmap-step {
+            position: relative;
+            display: flex;
+            gap: 14px;
+            align-items: stretch;
+            padding-bottom: 14px;
         }
-        .mindmap-card.theme-emerald .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-emerald .mindmap-card-subtitle { color: #6ee7b7; }
 
-        .mindmap-card.theme-amber {
-            background: rgba(120, 53, 15, 0.42);
-            border-color: rgba(245, 158, 11, 0.4);
+        .mindmap-step:last-child {
+            padding-bottom: 0;
         }
-        .mindmap-card.theme-amber .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-amber .mindmap-card-subtitle { color: #fcd34d; }
 
-        .mindmap-card.theme-rose {
-            background: rgba(127, 29, 29, 0.42);
-            border-color: rgba(244, 63, 94, 0.4);
+        .mindmap-step-num {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .mindmap-card.theme-rose .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-rose .mindmap-card-subtitle { color: #fda4af; }
 
-        .mindmap-card.theme-cyan {
-            background: rgba(22, 78, 99, 0.42);
-            border-color: rgba(34, 211, 238, 0.4);
-        }
-        .mindmap-card.theme-cyan .mindmap-card-title { color: #ffffff; }
-        .mindmap-card.theme-cyan .mindmap-card-subtitle { color: #67e8f9; }
-
-        .mindmap-card-title {
-            font-size: 15px;
+        .mindmap-step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
             font-weight: 700;
             color: #f5f5f5;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .mindmap-step:not(:last-child) .mindmap-step-num::after {
+            content: "";
+            position: absolute;
+            top: 32px;
+            bottom: -14px;
+            left: 50%;
+            width: 1.5px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+            transform: translateX(-50%);
+        }
+
+        .mindmap-step-body {
+            flex: 1;
+            padding: 10px 14px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .mindmap-step-body:hover {
+            transform: translateX(2px);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SOFTER PASTEL THEMES (used by all styles)
+           ════════════════════════════════════════════════════════════ */
+        .theme-blue,
+        .mindmap-card.theme-blue,
+        .mindmap-hub-branch.theme-blue,
+        .mindmap-step.theme-blue .mindmap-step-body {
+            background: rgba(59, 130, 246, 0.10);
+            border-color: rgba(96, 165, 250, 0.22);
+        }
+        .theme-blue .mindmap-card-title,
+        .mindmap-step.theme-blue .mindmap-card-title { color: #bfdbfe; }
+        .theme-blue .mindmap-card-subtitle,
+        .mindmap-step.theme-blue .mindmap-card-subtitle { color: #93c5fd; opacity: 0.85; }
+        .mindmap-step.theme-blue .mindmap-step-circle { color: #bfdbfe; background: rgba(59, 130, 246, 0.18); border-color: rgba(96, 165, 250, 0.45); }
+
+        .theme-violet,
+        .mindmap-card.theme-violet,
+        .mindmap-hub-branch.theme-violet,
+        .mindmap-step.theme-violet .mindmap-step-body {
+            background: rgba(139, 92, 246, 0.11);
+            border-color: rgba(167, 139, 250, 0.25);
+        }
+        .theme-violet .mindmap-card-title,
+        .mindmap-step.theme-violet .mindmap-card-title { color: #ddd6fe; }
+        .theme-violet .mindmap-card-subtitle,
+        .mindmap-step.theme-violet .mindmap-card-subtitle { color: #c4b5fd; opacity: 0.85; }
+        .mindmap-step.theme-violet .mindmap-step-circle { color: #ddd6fe; background: rgba(139, 92, 246, 0.18); border-color: rgba(167, 139, 250, 0.45); }
+
+        .theme-emerald,
+        .mindmap-card.theme-emerald,
+        .mindmap-hub-branch.theme-emerald,
+        .mindmap-step.theme-emerald .mindmap-step-body {
+            background: rgba(16, 185, 129, 0.09);
+            border-color: rgba(52, 211, 153, 0.22);
+        }
+        .theme-emerald .mindmap-card-title,
+        .mindmap-step.theme-emerald .mindmap-card-title { color: #a7f3d0; }
+        .theme-emerald .mindmap-card-subtitle,
+        .mindmap-step.theme-emerald .mindmap-card-subtitle { color: #6ee7b7; opacity: 0.85; }
+        .mindmap-step.theme-emerald .mindmap-step-circle { color: #a7f3d0; background: rgba(16, 185, 129, 0.18); border-color: rgba(52, 211, 153, 0.45); }
+
+        .theme-amber,
+        .mindmap-card.theme-amber,
+        .mindmap-hub-branch.theme-amber,
+        .mindmap-step.theme-amber .mindmap-step-body {
+            background: rgba(245, 158, 11, 0.09);
+            border-color: rgba(252, 211, 77, 0.22);
+        }
+        .theme-amber .mindmap-card-title,
+        .mindmap-step.theme-amber .mindmap-card-title { color: #fde68a; }
+        .theme-amber .mindmap-card-subtitle,
+        .mindmap-step.theme-amber .mindmap-card-subtitle { color: #fcd34d; opacity: 0.8; }
+        .mindmap-step.theme-amber .mindmap-step-circle { color: #fde68a; background: rgba(245, 158, 11, 0.18); border-color: rgba(252, 211, 77, 0.45); }
+
+        .theme-rose,
+        .mindmap-card.theme-rose,
+        .mindmap-hub-branch.theme-rose,
+        .mindmap-step.theme-rose .mindmap-step-body {
+            background: rgba(244, 63, 94, 0.09);
+            border-color: rgba(251, 113, 133, 0.22);
+        }
+        .theme-rose .mindmap-card-title,
+        .mindmap-step.theme-rose .mindmap-card-title { color: #fecdd3; }
+        .theme-rose .mindmap-card-subtitle,
+        .mindmap-step.theme-rose .mindmap-card-subtitle { color: #fda4af; opacity: 0.85; }
+        .mindmap-step.theme-rose .mindmap-step-circle { color: #fecdd3; background: rgba(244, 63, 94, 0.18); border-color: rgba(251, 113, 133, 0.45); }
+
+        .theme-cyan,
+        .mindmap-card.theme-cyan,
+        .mindmap-hub-branch.theme-cyan,
+        .mindmap-step.theme-cyan .mindmap-step-body {
+            background: rgba(34, 211, 238, 0.09);
+            border-color: rgba(103, 232, 249, 0.22);
+        }
+        .theme-cyan .mindmap-card-title,
+        .mindmap-step.theme-cyan .mindmap-card-title { color: #a5f3fc; }
+        .theme-cyan .mindmap-card-subtitle,
+        .mindmap-step.theme-cyan .mindmap-card-subtitle { color: #67e8f9; opacity: 0.85; }
+        .mindmap-step.theme-cyan .mindmap-step-circle { color: #a5f3fc; background: rgba(34, 211, 238, 0.18); border-color: rgba(103, 232, 249, 0.45); }
+
+        /* ─── Shared inner text styles ─── */
+        .mindmap-card-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #e5e5e5;
             line-height: 1.25;
             letter-spacing: -0.01em;
         }
 
         .mindmap-card-subtitle {
-            font-size: 13px;
-            color: #b8b8c2;
+            font-size: 12.5px;
+            color: #9ca3af;
             line-height: 1.45;
             font-weight: 500;
         }
@@ -1144,63 +1371,27 @@
         .mindmap-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 5px;
             margin-top: 4px;
         }
 
         .mindmap-tag {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
-            padding: 3px 10px;
+            padding: 2.5px 9px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
             color: #d4d4d8;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             white-space: nowrap;
         }
 
-        .mindmap-card.theme-blue .mindmap-tag {
-            background: rgba(99, 102, 241, 0.32);
-            color: #c7d2fe;
-            border-color: rgba(99, 102, 241, 0.4);
-        }
-        .mindmap-card.theme-violet .mindmap-tag {
-            background: rgba(139, 92, 246, 0.32);
-            color: #ddd6fe;
-            border-color: rgba(139, 92, 246, 0.45);
-        }
-        .mindmap-card.theme-emerald .mindmap-tag {
-            background: rgba(16, 185, 129, 0.3);
-            color: #a7f3d0;
-            border-color: rgba(16, 185, 129, 0.4);
-        }
-        .mindmap-card.theme-amber .mindmap-tag {
-            background: rgba(245, 158, 11, 0.3);
-            color: #fde68a;
-            border-color: rgba(245, 158, 11, 0.4);
-        }
-        .mindmap-card.theme-rose .mindmap-tag {
-            background: rgba(244, 63, 94, 0.3);
-            color: #fecdd3;
-            border-color: rgba(244, 63, 94, 0.4);
-        }
-        .mindmap-card.theme-cyan .mindmap-tag {
-            background: rgba(34, 211, 238, 0.3);
-            color: #a5f3fc;
-            border-color: rgba(34, 211, 238, 0.4);
-        }
-
-        .mindmap-arrow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 22px;
-            color: #6b7280;
-            font-size: 18px;
-            line-height: 1;
-            opacity: 0.55;
-            margin: -2px 0;
-        }
+        .theme-blue .mindmap-tag    { background: rgba(96, 165, 250, 0.14); color: #bfdbfe; border-color: rgba(96, 165, 250, 0.2); }
+        .theme-violet .mindmap-tag  { background: rgba(167, 139, 250, 0.14); color: #ddd6fe; border-color: rgba(167, 139, 250, 0.22); }
+        .theme-emerald .mindmap-tag { background: rgba(52, 211, 153, 0.14); color: #a7f3d0; border-color: rgba(52, 211, 153, 0.2); }
+        .theme-amber .mindmap-tag   { background: rgba(252, 211, 77, 0.14); color: #fde68a; border-color: rgba(252, 211, 77, 0.22); }
+        .theme-rose .mindmap-tag    { background: rgba(251, 113, 133, 0.14); color: #fecdd3; border-color: rgba(251, 113, 133, 0.2); }
+        .theme-cyan .mindmap-tag    { background: rgba(103, 232, 249, 0.14); color: #a5f3fc; border-color: rgba(103, 232, 249, 0.2); }
 
         .mindmap-error {
             padding: 10px 14px;
@@ -1746,7 +1937,7 @@ After searching, you MUST use read_url on at least 1 result to get detailed info
 
 OUTPUT FORMAT: Use markdown with headers (###), bold, tables, bullet points, code blocks. Keep answers structured and scannable. Use emojis for section headers (🧠, 📊, ⚡, ⚠️, ✅, 🔧).
 
-VISUAL MIND MAP — emit a \`\`\`mindmap fenced JSON block. The mind map renders inline (no outer wrapper box) so it blends naturally with the rest of your message.
+VISUAL MIND MAP — emit a \`\`\`mindmap fenced JSON block. It renders inline (no outer wrapper box), with a soft pastel palette and a smooth box-by-box reveal animation.
 
 WHEN TO USE:
 • Complex / multi-step topics (roadmaps, pipelines, architectures, learning paths, decision trees, lifecycles, stage comparisons).
@@ -1754,38 +1945,71 @@ WHEN TO USE:
 • User says they don't understand, are confused, want it simpler, or asks "explain visually / break it down".
 SKIP for trivial answers, single facts, greetings, or short replies.
 
-FORMAT (strict JSON, no comments, no trailing commas):
+YOU CHOOSE 1 OF 3 STYLES depending on the topic — pick the most natural fit:
+
+╭─ STYLE A: "flow" ── for sequential progressions, learning paths, multi-stage pipelines
 \`\`\`mindmap
 {
-  "title": "🎯 OPTIONAL TOP TITLE",
+  "style": "flow",
+  "title": "🎯 OPTIONAL TITLE",
   "phases": [
-    {
-      "label": "PHASE 1 — FOUNDATIONS",
-      "theme": "violet",
+    { "label": "PHASE 1 — FOUNDATIONS", "theme": "violet",
       "cards": [
-        { "title": "Math Essentials", "subtitle": "Linear algebra · Calculus · Stats", "tags": ["Prerequisites", "Critical"] },
-        { "title": "Python Basics", "subtitle": "Variables · Loops · OOP", "tags": ["Language", "Syntax"] }
+        { "title": "Math Essentials", "subtitle": "Linear algebra · Calculus · Stats", "tags": ["Prereq", "Critical"] },
+        { "title": "Python Basics", "subtitle": "Variables · Loops · OOP", "tags": ["Language"] }
       ]
     },
-    {
-      "label": "PHASE 2 — MACHINE LEARNING",
-      "theme": "blue",
-      "cards": [ { "title": "Supervised", "subtitle": "Regression · Classification", "tags": ["Labeled data"] } ]
+    { "label": "PHASE 2 — ML", "theme": "blue",
+      "cards": [ { "title": "Supervised", "subtitle": "Regression · Classification", "tags": ["Labeled"] } ]
     }
   ]
 }
 \`\`\`
 
-THEME RULES (CRITICAL — never use "default" except as a last resort):
+╭─ STYLE B: "hub" ── for a single concept with surrounding sub-topics / aspects / components
+\`\`\`mindmap
+{
+  "style": "hub",
+  "title": "OPTIONAL TITLE",
+  "center": { "title": "Machine Learning", "subtitle": "Core concept", "theme": "violet" },
+  "branches": [
+    { "title": "Supervised", "subtitle": "Labeled data", "theme": "blue" },
+    { "title": "Unsupervised", "subtitle": "Patterns", "theme": "emerald" },
+    { "title": "Reinforcement", "subtitle": "Rewards", "theme": "amber" },
+    { "title": "Deep Learning", "subtitle": "Neural nets", "theme": "rose" }
+  ]
+}
+\`\`\`
+
+╭─ STYLE C: "steps" ── for ordered procedures, how-to guides, numbered processes, decision flows
+\`\`\`mindmap
+{
+  "style": "steps",
+  "title": "OPTIONAL TITLE",
+  "steps": [
+    { "title": "Define the problem", "subtitle": "Goals · Constraints", "theme": "violet" },
+    { "title": "Collect data", "subtitle": "Sources · Cleaning", "theme": "blue" },
+    { "title": "Train model", "subtitle": "Split · Validate", "theme": "emerald" },
+    { "title": "Evaluate", "subtitle": "Metrics · Tuning", "theme": "amber" }
+  ]
+}
+\`\`\`
+
+STYLE-CHOICE GUIDANCE:
+• flow  → there are clear ordered phases, each containing multiple parallel items (learning paths, build pipelines, evolution timelines).
+• hub   → one central topic with 3–6 related aspects that fan out around it (definitions, anatomies, ecosystems).
+• steps → a single linear sequence of actions/stages where order matters (procedures, how-tos, decision flows).
+
+THEME RULES:
 • Allowed themes: violet, blue, emerald, amber, rose, cyan, default.
-• ALWAYS pick a vibrant theme PER PHASE so each stage looks visually distinct (e.g. phase 1 = violet → phase 2 = blue → phase 3 = emerald → phase 4 = amber → phase 5 = rose).
-• Override per-card with its own "theme" field when cards in the same row belong to different categories (e.g. NLP=emerald, vision=cyan, generative=amber, robotics=rose).
-• "title" is optional — include only if the map has a clear top-level subject; you may prefix it with an emoji.
+• Use soft variety — alternate themes across phases/branches/steps so each unit looks distinct (violet → blue → emerald → amber → rose). Avoid "default" unless you genuinely have no thematic distinction.
+• In "hub", the center is usually violet; satellites should each get their own theme.
 
 CONTENT RULES:
-• Every card needs a "title"; "subtitle" and "tags" are optional but recommended.
-• Keep titles ≤4 words, subtitles ≤12 words separated by " · ", tags ≤2 words each (max 3 tags).
-• 2–4 cards per phase, 2–5 phases total.
+• Every card/branch/step needs a "title". "subtitle" and "tags" are optional but recommended.
+• Keep titles ≤4 words, subtitles ≤10 words separated by " · ", tags ≤2 words each (max 3 tags).
+• flow: 2–5 phases, 2–4 cards per phase. hub: 3–6 branches. steps: 3–6 steps.
+• "title" at the top level is optional — include only if the map needs a label.
 • After the mindmap block, add 2–4 short sentences of plain prose explaining the diagram.`;
         }
 
@@ -2494,26 +2718,60 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
             try { data = JSON.parse(jsonStr); }
             catch (e) { return `<div class="mindmap-error">⚠️ Mind map parse error: ${escapeHtml(e.message)}</div>`; }
             const VALID_THEMES = ["default", "blue", "violet", "emerald", "amber", "rose", "cyan"];
-            const phases = Array.isArray(data.phases) ? data.phases : [];
-            if (!phases.length) return `<div class="mindmap-error">⚠️ Mind map needs at least one phase</div>`;
+            const themeOf = (t, fallback) => VALID_THEMES.includes(t) ? t : (fallback || "default");
             const titleHtml = data.title ? `<div class="mindmap-title">${escapeHtml(data.title)}</div>` : "";
-            const phaseHtml = phases.map((phase, pi) => {
-                const label = phase.label ? `<div class="mindmap-phase-label">${escapeHtml(phase.label)}</div>` : "";
-                const cards = Array.isArray(phase.cards) ? phase.cards : [];
-                const phaseTheme = VALID_THEMES.includes(phase.theme) ? phase.theme : null;
-                const cardsHtml = cards.map(card => {
-                    const theme = VALID_THEMES.includes(card.theme) ? card.theme : (phaseTheme || "default");
-                    const title = card.title ? `<div class="mindmap-card-title">${escapeHtml(card.title)}</div>` : "";
-                    const subtitle = card.subtitle ? `<div class="mindmap-card-subtitle">${escapeHtml(card.subtitle)}</div>` : "";
-                    const tags = Array.isArray(card.tags) && card.tags.length
-                        ? `<div class="mindmap-tags">${card.tags.map(t => `<span class="mindmap-tag">${escapeHtml(String(t))}</span>`).join("")}</div>`
-                        : "";
-                    return `<div class="mindmap-card theme-${theme}">${title}${subtitle}${tags}</div>`;
+            const style = data.style === "hub" || data.style === "steps" ? data.style : "flow";
+            // Counter that increments per visible item to drive staggered reveal animation.
+            let i = 0;
+            const item = (cls, inner) => `<div class="${cls} mindmap-item" style="--mm-i:${i++}">${inner}</div>`;
+            const innerCard = (card) => {
+                const title = card.title ? `<div class="mindmap-card-title">${escapeHtml(card.title)}</div>` : "";
+                const subtitle = card.subtitle ? `<div class="mindmap-card-subtitle">${escapeHtml(card.subtitle)}</div>` : "";
+                const tags = Array.isArray(card.tags) && card.tags.length
+                    ? `<div class="mindmap-tags">${card.tags.map(t => `<span class="mindmap-tag">${escapeHtml(String(t))}</span>`).join("")}</div>`
+                    : "";
+                return title + subtitle + tags;
+            };
+
+            let body = "";
+
+            if (style === "hub") {
+                const center = data.center || {};
+                const branches = Array.isArray(data.branches) ? data.branches : [];
+                if (!branches.length) return `<div class="mindmap-error">⚠️ Hub needs at least one branch</div>`;
+                const centerTheme = themeOf(center.theme, "violet");
+                const centerHtml = item(`mindmap-hub-center theme-${centerTheme}`, innerCard(center));
+                const spokesHtml = branches.map(b => item(`mindmap-hub-branch theme-${themeOf(b.theme, "default")}`, innerCard(b))).join("");
+                body = `<div class="mindmap-hub">${centerHtml}<div class="mindmap-hub-spokes">${spokesHtml}</div></div>`;
+            } else if (style === "steps") {
+                const steps = Array.isArray(data.steps) ? data.steps : [];
+                if (!steps.length) return `<div class="mindmap-error">⚠️ Steps needs at least one step</div>`;
+                const stepsHtml = steps.map((s, idx) => {
+                    const theme = themeOf(s.theme, "default");
+                    const num = `<div class="mindmap-step-num"><div class="mindmap-step-circle">${idx + 1}</div></div>`;
+                    const bodyEl = `<div class="mindmap-step-body">${innerCard(s)}</div>`;
+                    return item(`mindmap-step theme-${theme}`, num + bodyEl);
                 }).join("");
-                const arrow = pi < phases.length - 1 ? `<div class="mindmap-arrow">↓</div>` : "";
-                return `<div class="mindmap-phase">${label}<div class="mindmap-row">${cardsHtml}</div></div>${arrow}`;
-            }).join("");
-            return `<div class="mindmap-container">${titleHtml}${phaseHtml}</div>`;
+                body = `<div class="mindmap-steps">${stepsHtml}</div>`;
+            } else {
+                // flow (default)
+                const phases = Array.isArray(data.phases) ? data.phases : [];
+                if (!phases.length) return `<div class="mindmap-error">⚠️ Flow needs at least one phase</div>`;
+                const phaseHtml = phases.map((phase, pi) => {
+                    const label = phase.label ? `<div class="mindmap-phase-label">${escapeHtml(phase.label)}</div>` : "";
+                    const cards = Array.isArray(phase.cards) ? phase.cards : [];
+                    const phaseTheme = themeOf(phase.theme, null);
+                    const cardsHtml = cards.map(card => {
+                        const theme = themeOf(card.theme, phaseTheme || "default");
+                        return item(`mindmap-card theme-${theme}`, innerCard(card));
+                    }).join("");
+                    const arrow = pi < phases.length - 1 ? `<div class="mindmap-arrow">↓</div>` : "";
+                    return `<div class="mindmap-phase">${label}<div class="mindmap-row">${cardsHtml}</div></div>${arrow}`;
+                }).join("");
+                body = `<div class="mindmap-flow">${phaseHtml}</div>`;
+            }
+
+            return `<div class="mindmap-container">${titleHtml}${body}</div>`;
         }
 
         function renderMarkdown(text, sources) {
