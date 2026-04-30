@@ -1052,8 +1052,8 @@
 
         .mindmap-item {
             opacity: 0;
-            animation: mindmapItemIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            animation-delay: calc(var(--mm-i, 0) * 90ms);
+            animation: mindmapItemIn 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: var(--mm-delay, calc(var(--mm-i, 0) * 180ms));
         }
 
         /* ════════════════════════════════════════════════════════════
@@ -1485,6 +1485,282 @@
         .mindmap-clickable:focus-visible .mindmap-node-cta {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ─── Lightweight rich-format components (for weak-model output) ─── */
+        .rich-callout {
+            margin: 10px 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .rich-callout-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 4px;
+        }
+
+        .rich-callout-body {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #d4d4d8;
+        }
+
+        .rich-callout--note {
+            border-color: rgba(96, 165, 250, 0.35);
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .rich-callout--note .rich-callout-title { color: #93c5fd; }
+
+        .rich-callout--warning {
+            border-color: rgba(251, 191, 36, 0.35);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .rich-callout--warning .rich-callout-title { color: #fcd34d; }
+
+        .rich-callout--tip {
+            border-color: rgba(52, 211, 153, 0.35);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .rich-callout--tip .rich-callout-title { color: #6ee7b7; }
+
+        .rich-steps {
+            margin: 12px 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .rich-steps-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rich-step-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .rich-step-index {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139, 92, 246, 0.22);
+            border: 1px solid rgba(167, 139, 250, 0.45);
+            color: #ddd6fe;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .rich-step-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #e5e7eb;
+            margin-bottom: 2px;
+        }
+
+        .rich-step-body {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #c4c4cc;
+        }
+
+        .rich-defs {
+            margin: 10px 0;
+            display: grid;
+            gap: 8px;
+        }
+
+        .rich-def {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 8px 10px;
+        }
+
+        .rich-def-term {
+            font-size: 12px;
+            font-weight: 700;
+            color: #bfdbfe;
+            margin-bottom: 2px;
+        }
+
+        .rich-def-body {
+            font-size: 12.5px;
+            color: #d4d4d8;
+            line-height: 1.5;
+        }
+
+        .rich-table-wrap {
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .rich-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 12.5px;
+        }
+
+        .rich-table th,
+        .rich-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .rich-table th:last-child,
+        .rich-table td:last-child {
+            border-right: none;
+        }
+
+        .rich-table th {
+            background: rgba(99, 102, 241, 0.16);
+            color: #c7d2fe;
+            font-weight: 700;
+        }
+
+        .rich-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rich-accordion {
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            overflow: hidden;
+        }
+
+        .rich-accordion > summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 10px 12px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #ddd6fe;
+            background: rgba(139, 92, 246, 0.12);
+        }
+
+        .rich-accordion > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .rich-accordion-body {
+            padding: 10px 12px;
+            color: #d4d4d8;
+            font-size: 12.5px;
+            line-height: 1.55;
+        }
+
+        .rich-timeline {
+            margin: 10px 0;
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-left: 1px solid rgba(167, 139, 250, 0.4);
+        }
+
+        .rich-timeline-item {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .rich-timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -14px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #a78bfa;
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.25);
+        }
+
+        .rich-timeline-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #ddd6fe;
+            margin-bottom: 2px;
+        }
+
+        .rich-timeline-body {
+            font-size: 12.5px;
+            color: #c4c4cc;
+            line-height: 1.5;
+        }
+
+        .rich-cards {
+            margin: 10px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 8px;
+        }
+
+        .rich-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 11px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .rich-card-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #e9d5ff;
+            margin-bottom: 4px;
+        }
+
+        .rich-card-body {
+            font-size: 12.5px;
+            color: #d4d4d8;
+            line-height: 1.5;
+        }
+
+        .rich-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px 0;
+            padding: 7px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(139, 92, 246, 0.45);
+            background: rgba(139, 92, 246, 0.16);
+            color: #ddd6fe !important;
+            text-decoration: none !important;
+            font-size: 12px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .rich-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(76, 29, 149, 0.35);
+            background: rgba(139, 92, 246, 0.24);
         }
 
         .mindmap-error {
@@ -2031,6 +2307,21 @@ After searching, you MUST use read_url on at least 1 result to get detailed info
 
 OUTPUT FORMAT: Use markdown with headers (###), bold, tables, bullet points, code blocks. Keep answers structured and scannable. Use emojis for section headers (🧠, 📊, ⚡, ⚠️, ✅, 🔧).
 
+ROBUST FORMAT TAGS (fallback for weaker models):
+• You may use bracket tags when markdown quality is poor.
+• Supported tags:
+  [h1]..[/h1] [h2]..[/h2] [h3]..[/h3] [h4]..[/h4] [h5]..[/h5] [h6]..[/h6]
+  [note]..[/note] [warning]..[/warning] [tip]..[/tip]
+  [steps][step title="..."]..[/step][/steps]
+  [term]..[/term][def]..[/def]
+  [table]..[/table] (pipe rows or [tr][th]/[td])
+  [code lang="js"]..[/code]
+  [accordion title="..."]..[/accordion]
+  [timeline][item title="..."]..[/item][/timeline]
+  [cards][card title="..."]..[/card][/cards]
+  [button url="https://..."]Label[/button]
+• Optional strict mode: add [strict] to ignore unsupported tags.
+
 VISUAL MIND MAP — emit a \`\`\`mindmap fenced JSON block. It renders inline (no outer wrapper box), with a soft pastel palette, smooth box-by-box reveal animation, stronger hover lift, and clickable nodes for drill-down.
 
 WHEN TO USE:
@@ -2120,6 +2411,8 @@ AVAILABLE TOOLS:
 
 IMPORTANT: You have REAL web search capability. When the user asks about news, current events, prices, or anything that needs up-to-date info, USE web_search tool. DO NOT say you can't access the web — you CAN and MUST.
 After searching, use read_url on at least 1 result for detailed info.
+
+If formatting is weak, you may use fallback tags like [h4]..[/h4], [note]..[/note], [steps]..[/steps], [code lang="js"]..[/code], [button url="..."]..[/button].
 
 Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bullet points. Max ~2000 chars when possible.`;
         }
@@ -2818,6 +3111,218 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
             return "";
         }
 
+        function parseTagAttributes(rawAttrs) {
+            const attrs = {};
+            (rawAttrs || "").replace(/([a-zA-Z][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s\]]+))/g, (m, key, dq, sq, bare) => {
+                attrs[key.toLowerCase()] = (dq ?? sq ?? bare ?? "").trim();
+                return "";
+            });
+            return attrs;
+        }
+
+        function normalizeWeakFormatting(rawText) {
+            let text = rawText || "";
+            // Supports slash-style tags: /h4 Title /h4
+            text = text.replace(/^\/h([1-6])\s+(.+?)\s*\/h\1\s*$/gim, (m, lvl, title) => `[h${lvl}]${title.trim()}[/h${lvl}]`);
+            text = text.replace(/^\/li\s+(.+?)\s*\/li\s*$/gim, (m, item) => `- ${item.trim()}`);
+            // Auto-repair common weak-model bullet symbols.
+            text = text.replace(/^[\t ]*[▸▶▷»→]\s+/gm, "- ");
+            // Auto-repair ordered lists like "1) item".
+            text = text.replace(/^\s*(\d+)\)\s+/gm, "$1. ");
+            // Auto-repair step labels to heading blocks.
+            text = text.replace(/^\s*Step\s*(\d+)\s*[:\-]\s*(.+)\s*$/gim, (m, n, title) => `[h4]Step ${n}: ${title.trim()}[/h4]`);
+            return text;
+        }
+
+        function renderRichBodyHtml(rawBody) {
+            const body = normalizeWeakFormatting(rawBody || "").trim();
+            if (!body) return "";
+            return DOMPurify.sanitize(marked.parse(body), { ADD_TAGS: ["img", "youtube"], ADD_ATTR: ["src", "alt", "title", "loading", "videoid"] });
+        }
+
+        function buildRichTableHtml(rawBody) {
+            const body = (rawBody || "").trim();
+            if (!body) return "";
+
+            let rows = [];
+            const taggedRows = [...body.matchAll(/\[tr\]([\s\S]*?)\[\/tr\]/gi)];
+            if (taggedRows.length) {
+                rows = taggedRows.map(r => {
+                    const rowBody = r[1] || "";
+                    const th = [...rowBody.matchAll(/\[th\]([\s\S]*?)\[\/th\]/gi)].map(x => (x[1] || "").trim());
+                    if (th.length) return th;
+                    return [...rowBody.matchAll(/\[td\]([\s\S]*?)\[\/td\]/gi)].map(x => (x[1] || "").trim());
+                }).filter(r => r.length);
+            } else {
+                rows = body
+                    .split(/\r?\n/)
+                    .map(line => line.trim())
+                    .filter(Boolean)
+                    .map(line => line.replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim()))
+                    .filter(r => r.length);
+            }
+
+            if (!rows.length) return "";
+            if (rows.length > 1 && rows[1].every(c => /^:?-{2,}:?$/.test(c))) rows.splice(1, 1);
+
+            const header = rows[0];
+            const dataRows = rows.slice(1);
+            const colCount = header.length;
+            const renderCells = (cells, tag) => {
+                const padded = [...cells.slice(0, colCount)];
+                while (padded.length < colCount) padded.push("");
+                return padded.map(c => `<${tag}>${escapeHtml(c)}</${tag}>`).join("");
+            };
+
+            const thead = `<thead><tr>${renderCells(header, "th")}</tr></thead>`;
+            const tbody = dataRows.length
+                ? `<tbody>${dataRows.map(r => `<tr>${renderCells(r, "td")}</tr>`).join("")}</tbody>`
+                : "";
+
+            return `<div class="rich-table-wrap"><table class="rich-table">${thead}${tbody}</table></div>`;
+        }
+
+        function preprocessRichFormatting(rawText) {
+            const richBlocks = [];
+            const addBlock = (html) => {
+                const idx = richBlocks.length;
+                richBlocks.push(html);
+                return `\n\nRICHBLOCKTOKEN${idx}END\n\n`;
+            };
+
+            let text = normalizeWeakFormatting(rawText || "");
+            let strictMode = false;
+            text = text.replace(/\[(strict|strict-mode)\]/gi, () => { strictMode = true; return ""; });
+
+            const allowedTags = new Set([
+                "strict", "strict-mode",
+                "h1", "h2", "h3", "h4", "h5", "h6",
+                "note", "warning", "tip",
+                "steps", "step",
+                "term", "def",
+                "table", "tr", "th", "td",
+                "code",
+                "accordion",
+                "timeline", "item",
+                "cards", "card",
+                "button",
+            ]);
+
+            if (strictMode) {
+                const unknown = new Set();
+                text = text.replace(/\[(\/?)([a-z][a-z0-9-]*)(?:\s+[^\]]*)?\]/gi, (full, slash, name) => {
+                    const tag = String(name || "").toLowerCase();
+                    if (allowedTags.has(tag)) return full;
+                    unknown.add(tag);
+                    return "";
+                });
+                if (unknown.size > 0) {
+                    const tags = [...unknown].map(t => `<code>[${escapeHtml(t)}]</code>`).join(" ");
+                    const warning = `<div class="rich-callout rich-callout--warning"><div class="rich-callout-title">Strict mode</div><div class="rich-callout-body">Unsupported tags were ignored: ${tags}</div></div>`;
+                    text = addBlock(warning) + text;
+                }
+            }
+
+            text = text.replace(/\[h([1-6])\]([\s\S]*?)\[\/h\1\]/gi, (m, level, body) => {
+                const hashes = "#".repeat(Math.max(1, Math.min(6, parseInt(level, 10) || 1)));
+                return `\n\n${hashes} ${(body || "").trim()}\n\n`;
+            });
+
+            text = text.replace(/\[code([^\]]*)\]([\s\S]*?)\[\/code\]/gi, (m, attrsRaw, body) => {
+                const attrs = parseTagAttributes(attrsRaw);
+                const lang = (attrs.lang || attrs.language || "").trim();
+                return `\n\n\`\`\`${lang}\n${(body || "").trim()}\n\`\`\`\n\n`;
+            });
+
+            text = text.replace(/\[button([^\]]*)\]([\s\S]*?)\[\/button\]/gi, (m, attrsRaw, label) => {
+                const attrs = parseTagAttributes(attrsRaw);
+                const targetUrl = sanitizeMapUrl(attrs.url || attrs.href || "");
+                const safeLabel = escapeHtml((label || "Open").trim() || "Open");
+                if (!targetUrl) return safeLabel;
+                return addBlock(`<a class="rich-action-btn" href="${escapeAttr(targetUrl)}" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`);
+            });
+
+            text = text.replace(/\[term\]([\s\S]*?)\[\/term\]\s*\[def\]([\s\S]*?)\[\/def\]/gi, (m, term, def) => {
+                const html = `<div class="rich-defs"><div class="rich-def"><div class="rich-def-term">${escapeHtml((term || "").trim())}</div><div class="rich-def-body">${renderRichBodyHtml(def || "")}</div></div></div>`;
+                return addBlock(html);
+            });
+
+            text = text.replace(/\[(note|warning|tip)\]([\s\S]*?)\[\/\1\]/gi, (m, type, body) => {
+                const kind = String(type || "").toLowerCase();
+                const title = kind === "note" ? "Note" : kind === "warning" ? "Warning" : "Tip";
+                const html = `<div class="rich-callout rich-callout--${kind}"><div class="rich-callout-title">${title}</div><div class="rich-callout-body">${renderRichBodyHtml(body || "")}</div></div>`;
+                return addBlock(html);
+            });
+
+            text = text.replace(/\[table\]([\s\S]*?)\[\/table\]/gi, (m, body) => {
+                const html = buildRichTableHtml(body || "");
+                return html ? addBlock(html) : "";
+            });
+
+            text = text.replace(/\[accordion([^\]]*)\]([\s\S]*?)\[\/accordion\]/gi, (m, attrsRaw, body) => {
+                const attrs = parseTagAttributes(attrsRaw);
+                const title = escapeHtml((attrs.title || attrs.label || "Details").trim());
+                const html = `<details class="rich-accordion"><summary>${title}</summary><div class="rich-accordion-body">${renderRichBodyHtml(body || "")}</div></details>`;
+                return addBlock(html);
+            });
+
+            text = text.replace(/\[steps\]([\s\S]*?)\[\/steps\]/gi, (m, body) => {
+                const stepMatches = [...(body || "").matchAll(/\[step([^\]]*)\]([\s\S]*?)\[\/step\]/gi)];
+                const items = stepMatches.length
+                    ? stepMatches.map((s, idx) => {
+                        const attrs = parseTagAttributes(s[1] || "");
+                        const title = (attrs.title || "").trim();
+                        const itemBody = renderRichBodyHtml(s[2] || "");
+                        return `<li class="rich-step-item"><span class="rich-step-index">${idx + 1}</span><div>${title ? `<div class="rich-step-title">${escapeHtml(title)}</div>` : ""}<div class="rich-step-body">${itemBody}</div></div></li>`;
+                    })
+                    : (body || "")
+                        .split(/\r?\n/)
+                        .map(line => line.trim())
+                        .filter(Boolean)
+                        .map((line, idx) => `<li class="rich-step-item"><span class="rich-step-index">${idx + 1}</span><div class="rich-step-body">${renderRichBodyHtml(line.replace(/^[-*]\s*/, ""))}</div></li>`);
+                if (!items.length) return "";
+                return addBlock(`<div class="rich-steps"><ol class="rich-steps-list">${items.join("")}</ol></div>`);
+            });
+
+            text = text.replace(/\[timeline\]([\s\S]*?)\[\/timeline\]/gi, (m, body) => {
+                const itemMatches = [...(body || "").matchAll(/\[item([^\]]*)\]([\s\S]*?)\[\/item\]/gi)];
+                const items = itemMatches.length
+                    ? itemMatches.map((it) => {
+                        const attrs = parseTagAttributes(it[1] || "");
+                        const title = (attrs.title || attrs.label || "").trim();
+                        const content = renderRichBodyHtml(it[2] || "");
+                        return `<div class="rich-timeline-item">${title ? `<div class="rich-timeline-title">${escapeHtml(title)}</div>` : ""}<div class="rich-timeline-body">${content}</div></div>`;
+                    })
+                    : (body || "")
+                        .split(/\r?\n/)
+                        .map(line => line.trim())
+                        .filter(Boolean)
+                        .map(line => `<div class="rich-timeline-item"><div class="rich-timeline-body">${renderRichBodyHtml(line.replace(/^[-*]\s*/, ""))}</div></div>`);
+                if (!items.length) return "";
+                return addBlock(`<div class="rich-timeline">${items.join("")}</div>`);
+            });
+
+            text = text.replace(/\[cards\]([\s\S]*?)\[\/cards\]/gi, (m, body) => {
+                const cardMatches = [...(body || "").matchAll(/\[card([^\]]*)\]([\s\S]*?)\[\/card\]/gi)];
+                const cards = cardMatches.length
+                    ? cardMatches.map((c) => {
+                        const attrs = parseTagAttributes(c[1] || "");
+                        const title = (attrs.title || attrs.label || "").trim();
+                        const content = renderRichBodyHtml(c[2] || "");
+                        return `<div class="rich-card">${title ? `<div class="rich-card-title">${escapeHtml(title)}</div>` : ""}<div class="rich-card-body">${content}</div></div>`;
+                    })
+                    : (body || "")
+                        .split(/\n-{3,}\n/)
+                        .map(x => x.trim())
+                        .filter(Boolean)
+                        .map(x => `<div class="rich-card"><div class="rich-card-body">${renderRichBodyHtml(x)}</div></div>`);
+                if (!cards.length) return "";
+                return addBlock(`<div class="rich-cards">${cards.join("")}</div>`);
+            });
+
+            return { text, richBlocks };
+        }
+
         function handleMindmapNodeClick(el) {
             if (!el) return;
             const targetUrl = sanitizeMapUrl(el.dataset.mmUrl || "");
@@ -2842,10 +3347,11 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
             const style = data.style === "hub" || data.style === "steps" ? data.style : "flow";
             // Counter that increments per visible item to drive staggered reveal animation.
             let i = 0;
-            const item = (cls, inner, node, fallbackTitle = "this topic") => {
+            const item = (cls, inner, node, fallbackTitle = "this topic", delayMs = null) => {
                 const nodeObj = node && typeof node === "object" ? node : {};
                 const isClickable = nodeObj.clickable !== false;
-                if (!isClickable) return `<div class="${cls} mindmap-item" style="--mm-i:${i++}">${inner}</div>`;
+                const styleVars = delayMs == null ? `--mm-i:${i++}` : `--mm-i:${i++};--mm-delay:${delayMs}ms`;
+                if (!isClickable) return `<div class="${cls} mindmap-item" style="${styleVars}">${inner}</div>`;
 
                 const title = typeof nodeObj.title === "string" && nodeObj.title.trim() ? nodeObj.title.trim() : fallbackTitle;
                 const rawPrompt = [nodeObj.drill, nodeObj.drillPrompt, nodeObj.prompt].find(v => typeof v === "string" && v.trim());
@@ -2853,7 +3359,7 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
                 const targetUrl = sanitizeMapUrl(nodeObj.url || nodeObj.href || nodeObj.link || "");
                 const cta = targetUrl ? "Open link ↗" : "Explore deeper ↗";
                 const attrs = `data-mm-title="${escapeAttr(title)}" data-mm-drill="${escapeAttr(drillPrompt)}"${targetUrl ? ` data-mm-url="${escapeAttr(targetUrl)}"` : ""}`;
-                return `<button type="button" class="${cls} mindmap-item mindmap-clickable" style="--mm-i:${i++}" onclick="handleMindmapNodeClick(this)" ${attrs}>${inner}<span class="mindmap-node-cta">${cta}</span></button>`;
+                return `<button type="button" class="${cls} mindmap-item mindmap-clickable" style="${styleVars}" onclick="handleMindmapNodeClick(this)" ${attrs}>${inner}<span class="mindmap-node-cta">${cta}</span></button>`;
             };
             const innerCard = (card) => {
                 const title = card.title ? `<div class="mindmap-card-title">${escapeHtml(card.title)}</div>` : "";
@@ -2870,33 +3376,55 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
                 const center = data.center || {};
                 const branches = Array.isArray(data.branches) ? data.branches : [];
                 if (!branches.length) return `<div class="mindmap-error">⚠️ Hub needs at least one branch</div>`;
+                let revealMs = 0;
+                const CENTER_STEP_MS = 520;
+                const BRANCH_STEP_MS = 360;
                 const centerTheme = themeOf(center.theme, "violet");
-                const centerHtml = item(`mindmap-hub-center theme-${centerTheme}`, innerCard(center), center, "Main topic");
-                const spokesHtml = branches.map((b, bi) => item(`mindmap-hub-branch theme-${themeOf(b.theme, "default")}`, innerCard(b), b, `Branch ${bi + 1}`)).join("");
+                const centerHtml = item(`mindmap-hub-center theme-${centerTheme}`, innerCard(center), center, "Main topic", revealMs);
+                revealMs += CENTER_STEP_MS;
+                const spokesHtml = branches.map((b, bi) => {
+                    const branchHtml = item(`mindmap-hub-branch theme-${themeOf(b.theme, "default")}`, innerCard(b), b, `Branch ${bi + 1}`, revealMs);
+                    revealMs += BRANCH_STEP_MS;
+                    return branchHtml;
+                }).join("");
                 body = `<div class="mindmap-hub">${centerHtml}<div class="mindmap-hub-spokes">${spokesHtml}</div></div>`;
             } else if (style === "steps") {
                 const steps = Array.isArray(data.steps) ? data.steps : [];
                 if (!steps.length) return `<div class="mindmap-error">⚠️ Steps needs at least one step</div>`;
+                let revealMs = 0;
+                const STEP_REVEAL_MS = 430;
                 const stepsHtml = steps.map((s, idx) => {
                     const theme = themeOf(s.theme, "default");
                     const num = `<div class="mindmap-step-num"><div class="mindmap-step-circle">${idx + 1}</div></div>`;
                     const bodyEl = `<div class="mindmap-step-body">${innerCard(s)}</div>`;
-                    return item(`mindmap-step theme-${theme}`, num + bodyEl, s, `Step ${idx + 1}`);
+                    const stepHtml = item(`mindmap-step theme-${theme}`, num + bodyEl, s, `Step ${idx + 1}`, revealMs);
+                    revealMs += STEP_REVEAL_MS;
+                    return stepHtml;
                 }).join("");
                 body = `<div class="mindmap-steps">${stepsHtml}</div>`;
             } else {
                 // flow (default)
                 const phases = Array.isArray(data.phases) ? data.phases : [];
                 if (!phases.length) return `<div class="mindmap-error">⚠️ Flow needs at least one phase</div>`;
+                let revealMs = 0;
+                const CARD_REVEAL_MS = 420;
+                const PHASE_HOLD_MS = 320;
+                const ARROW_REVEAL_MS = 420;
                 const phaseHtml = phases.map((phase, pi) => {
                     const label = phase.label ? `<div class="mindmap-phase-label">${escapeHtml(phase.label)}</div>` : "";
                     const cards = Array.isArray(phase.cards) ? phase.cards : [];
                     const phaseTheme = themeOf(phase.theme, null);
                     const cardsHtml = cards.map((card, ci) => {
                         const theme = themeOf(card.theme, phaseTheme || "default");
-                        return item(`mindmap-card theme-${theme}`, innerCard(card), card, `Card ${pi + 1}.${ci + 1}`);
+                        const cardHtml = item(`mindmap-card theme-${theme}`, innerCard(card), card, `Card ${pi + 1}.${ci + 1}`, revealMs);
+                        revealMs += CARD_REVEAL_MS;
+                        return cardHtml;
                     }).join("");
-                    const arrow = pi < phases.length - 1 ? `<div class="mindmap-arrow">↓</div>` : "";
+                    revealMs += PHASE_HOLD_MS;
+                    const arrow = pi < phases.length - 1
+                        ? item("mindmap-arrow", "↓", { clickable: false }, "Flow arrow", revealMs)
+                        : "";
+                    if (pi < phases.length - 1) revealMs += ARROW_REVEAL_MS;
                     return `<div class="mindmap-phase">${label}<div class="mindmap-row">${cardsHtml}</div></div>${arrow}`;
                 }).join("");
                 body = `<div class="mindmap-flow">${phaseHtml}</div>`;
@@ -2913,10 +3441,15 @@ Keep responses concise for Telegram (mobile-friendly). Use short paragraphs, bul
                 mindmapBlocks.push(body);
                 return `\n\nMINDMAPTOKEN${i}END\n\n`;
             });
+            const rich = preprocessRichFormatting(text || "");
+            text = rich.text;
             let html = DOMPurify.sanitize(marked.parse(text || ""), { ADD_TAGS: ["img", "youtube"], ADD_ATTR: ["src", "alt", "title", "loading", "videoid"] });
             // Re-inject rendered mindmaps (handle wrapping <p> from marked).
             html = html.replace(/<p>\s*MINDMAPTOKEN(\d+)END\s*<\/p>/g, (m, i) => renderMindmap(mindmapBlocks[parseInt(i)] || ""));
             html = html.replace(/MINDMAPTOKEN(\d+)END/g, (m, i) => renderMindmap(mindmapBlocks[parseInt(i)] || ""));
+            // Re-inject rich-format components (handle wrapping <p> from marked).
+            html = html.replace(/<p>\s*RICHBLOCKTOKEN(\d+)END\s*<\/p>/g, (m, i) => rich.richBlocks[parseInt(i)] || "");
+            html = html.replace(/RICHBLOCKTOKEN(\d+)END/g, (m, i) => rich.richBlocks[parseInt(i)] || "");
             if (sources?.length > 0) html = html.replace(/\[(\d+)\]/g, (match, num) => { const i = parseInt(num) - 1; if (i >= 0 && i < sources.length) { const s = sources[i]; return `<a href="${escapeAttr(s.url)}" target="_blank" rel="noopener noreferrer" class="citation-link" title="${escapeAttr(s.title || s.url)}">${num}</a>`; } return match; });
             html = html.replace(/<a href=/g, '<a target="_blank" rel="noopener noreferrer" href=');
             html = html.replace(/<img\s/g, '<img loading="lazy" onerror="this.style.display=\'none\'" onclick="openImageLightbox(this.src)" ');
