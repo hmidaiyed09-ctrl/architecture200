@@ -502,3 +502,16 @@ Settings Modal → saveSettingsFromModal() [§16]
 | `alv_pmem` | Permanent memory strings (max 20) | Capped at 20 items |
 | `alv_tg_msgs` | Telegram message history | Halves on quota exceeded |
 | `alv_tg_offset` | Telegram polling offset | None |
+
+---
+
+## 👁️ Project Vision
+
+**Alverlika** isn't just another chat interface; it's a productivity powerhouse designed to be your primary window into the world of AI. By consolidating search, memory, and multi-agent capabilities into a single, blazing-fast file, it removes the friction between thinking and doing.
+
+Whether you're debugging complex code, researching deep topics, or managing daily tasks via Telegram, Alverlika is built to adapt to your workflow, keeping your data local and your interactions fluid.
+
+---
+
+## 📜 License
+MIT
