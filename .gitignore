@@ -1,0 +1,25 @@
+# Build outputs (generated via build commands - do not commit)
+.dist/
+dist/
+*.local
+
+# Environment variables (create locally - do not commit)
+.env
+.env.local
+.env.*.local
+
+# Logs (runtime generated - do not commit)
+logs
+*.log
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
